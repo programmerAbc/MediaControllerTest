@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF000000"
+    android:background="@drawable/controller_background"
     android:orientation="vertical">
 
     <LinearLayout
@@ -18,15 +18,24 @@
             android:contentDescription="@string/description" />
         <ImageButton
             android:id="@+id/rew"
-            style="@android:style/MediaButton.Rew"
+            android:src="@drawable/stepbackward"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:contentDescription="@string/description" />
         <ImageButton
             android:id="@+id/pause"
-            style="@android:style/MediaButton.Play"
+            android:src="@drawable/play"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:contentDescription="@string/description"/>
         <ImageButton
             android:id="@+id/ffwd"
-            style="@android:style/MediaButton.Ffwd"
+            android:src="@drawable/stepforward"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:contentDescription="@string/description"/>
         <ImageButton
             android:id="@+id/next"
@@ -62,6 +71,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
             android:paddingLeft="4dp"/>
         <ImageButton
             android:id="@+id/fullscreen"
