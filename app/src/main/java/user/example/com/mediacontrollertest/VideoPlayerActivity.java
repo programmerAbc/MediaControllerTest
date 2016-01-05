@@ -1,5 +1,6 @@
 package user.example.com.mediacontrollertest;
 
+import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -9,13 +10,13 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+import android.view.Surface;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class VideoPlayerActivity extends AppCompatActivity implements SurfaceHolder.Callback, MediaPlayer.OnPreparedListener, VideoControllerView.MediaPlayerControl {
-    SurfaceView videoSurface;
+public class VideoPlayerActivity extends AppCompatActivity implements TextureView.SurfaceTextureListener, MediaPlayer.OnPreparedListener, VideoControllerView.MediaPlayerControl {
+    TextureView videoSurface;
     MediaPlayer player;
     VideoControllerView controller;
 
@@ -34,9 +35,8 @@ public class VideoPlayerActivity extends AppCompatActivity implements SurfaceHol
                         .setAction("Action", null).show();
             }
         });
-        videoSurface = (SurfaceView) findViewById(R.id.videoSurface);
-        SurfaceHolder videoHolder = videoSurface.getHolder();
-        videoHolder.addCallback(this);
+        videoSurface = (TextureView) findViewById(R.id.videoSurface);
+        videoSurface.setSurfaceTextureListener(this);
         player = new MediaPlayer();
         controller = new VideoControllerView(this);
         try {
@@ -46,28 +46,6 @@ public class VideoPlayerActivity extends AppCompatActivity implements SurfaceHol
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        controller.show();
-        return false;
-    }
-
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        player.setDisplay(holder);
-        player.prepareAsync();
-    }
-
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
 
     }
 
@@ -132,9 +110,36 @@ player.seekTo(pos);
     }
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        controller.show();
+        return false;
+    }
+
+    @Override
     public void onPrepared(MediaPlayer mp) {
         controller.setMediaPlayer(this);
         controller.setAnchorView((ViewGroup)findViewById(R.id.videoSurfaceContainer));
         player.start();
+    }
+
+    @Override
+    public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
+        player.setSurface(new Surface(surface));
+        player.prepareAsync();
+    }
+
+    @Override
+    public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
+
+    }
+
+    @Override
+    public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
+        return false;
+    }
+
+    @Override
+    public void onSurfaceTextureUpdated(SurfaceTexture surface) {
+
     }
 }
