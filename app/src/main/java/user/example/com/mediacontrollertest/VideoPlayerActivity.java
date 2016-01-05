@@ -9,17 +9,22 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 public class VideoPlayerActivity extends AppCompatActivity implements TextureView.SurfaceTextureListener, MediaPlayer.OnPreparedListener, VideoControllerView.MediaPlayerControl {
     TextureView videoSurface;
     MediaPlayer player;
     VideoControllerView controller;
-
+    GestureDetector gestureDetector;
+    Button button1;
+    Button button2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,12 +51,36 @@ public class VideoPlayerActivity extends AppCompatActivity implements TextureVie
         } catch (Exception e) {
             e.printStackTrace();
         }
+        gestureDetector=new GestureDetector(this,new GestureDetector.SimpleOnGestureListener(){
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                switch(controller.getShowState()){
+                    case SHOW:{
+                        controller.hide();
+                        break;}
+                    case HIDE:{
+                        controller.show();
+                        break;}
+                    case TRANSLATE:{
+                        break;}
+                    default:{
+                        break;}
+                }
+                return false;
+            }
+        });
 
     }
 
     @Override
     public void start() {
-player.start();
+        player.start();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        gestureDetector.onTouchEvent(ev);
+        return super.dispatchTouchEvent(ev);
     }
 
     @Override
@@ -71,7 +100,7 @@ player.start();
 
     @Override
     public void seekTo(int pos) {
-player.seekTo(pos);
+        player.seekTo(pos);
     }
 
     @Override
@@ -109,16 +138,12 @@ player.seekTo(pos);
 
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        controller.show();
-        return false;
-    }
+
 
     @Override
     public void onPrepared(MediaPlayer mp) {
         controller.setMediaPlayer(this);
-        controller.setAnchorView((ViewGroup)findViewById(R.id.videoSurfaceContainer));
+        controller.setAnchorView((ViewGroup) findViewById(R.id.videoSurfaceContainer));
         player.start();
     }
 

@@ -10,7 +10,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="user.example.com.mediacontrollertest.VideoPlayerActivity"
-    tools:showIn="@layout/activity_video_player">
+    tools:showIn="@layout/activity_video_player"
+    android:id="@+id/viewRoot"
+    >
     <LinearLayout
         android:id="@+id/video_container"
         android:layout_width="match_parent"
@@ -26,6 +28,20 @@
                 android:id="@+id/videoSurface"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="show"
+                android:id="@+id/button"
+                android:layout_gravity="left|top"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="hide"
+                android:id="@+id/button2"
+                android:layout_gravity="center_horizontal|top"/>
         </FrameLayout>
     </LinearLayout>
 </RelativeLayout>
