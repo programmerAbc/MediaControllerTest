@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item>
+    <item
+        android:left="10dp"
+        android:right="10dp">
         <shape android:shape="rectangle">
             <corners
                 android:topLeftRadius="10dp"
@@ -13,12 +15,11 @@
                 android:gradientRadius="500"
                 android:startColor="@android:color/holo_orange_dark"
                 android:type="radial" />
-
         </shape>
-
-
     </item>
-    <item>
+    <item
+        android:left="10dp"
+        android:right="10dp">
         <shape android:shape="rectangle">
             <corners
                 android:topLeftRadius="10dp"
@@ -30,7 +31,6 @@
                 android:gradientRadius="500"
                 android:startColor="@android:color/holo_purple"
                 android:type="radial" />
-
         </shape>
     </item>
 
