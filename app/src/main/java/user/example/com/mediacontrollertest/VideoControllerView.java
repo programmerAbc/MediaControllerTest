@@ -324,9 +324,9 @@ public class VideoControllerView extends FrameLayout {
             return;
         }
         if(mPlayer.isPlaying()){
-            mPauseButton.setImageResource(android.R.drawable.ic_media_pause);
+            mPauseButton.setImageResource(R.drawable.pause);
         }else{
-            mPauseButton.setImageResource(android.R.drawable.ic_media_play);
+            mPauseButton.setImageResource(R.drawable.play);
         }
     }
     public void updateFullScreen(){
